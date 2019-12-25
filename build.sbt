@@ -1,33 +1,23 @@
-import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+enablePlugins(ScalaJSPlugin)
 
-parallelExecution in Global := false
+organization := "com.thoughtworks.binding"
 
-lazy val SafeBuffer = crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).build
+name := "JsPromiseBinding"
 
-lazy val Binding = crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).dependsOn(SafeBuffer)
+libraryDependencies += "org.scalatest" %%% "scalatest" % "3.1.0" % Test
 
-lazy val FutureBinding = crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).dependsOn(Binding)
+libraryDependencies += "com.thoughtworks.binding" %%% "binding" % "12.0.0-M0"
 
-lazy val dom = project.dependsOn(Binding.js).dependsOn(XmlExtractor.js)
+enablePlugins(Example)
 
-lazy val Route = project.dependsOn(Binding.js)
-
-lazy val JsPromiseBinding = project.dependsOn(Binding.js)
-
-lazy val XmlExtractor = crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).build
-
-lazy val fxml = crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).dependsOn(Binding, XmlExtractor)
-
-organization in ThisBuild := "com.thoughtworks.binding"
-
-publish / skip := true
-
-enablePlugins(ScalaUnidocPlugin)
-
-ScalaUnidoc / unidoc / unidocProjectFilter := {
-  inAnyProject -- inProjects(SafeBuffer.jvm, XmlExtractor.jvm, Binding.jvm, FutureBinding.jvm, fxml.js)
+import meta._
+exampleSuperTypes := exampleSuperTypes.value.map {
+  case ctor"_root_.org.scalatest.FreeSpec" =>
+    ctor"_root_.org.scalatest.AsyncFreeSpec"
+  case otherTrait =>
+    otherTrait
 }
 
-addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
+exampleSuperTypes += ctor"_root_.com.thoughtworks.binding.QueueAsyncTestSuite"
 
-scalacOptions += "-Xexperimental"
+jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv()
