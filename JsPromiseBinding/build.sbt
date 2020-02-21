@@ -4,7 +4,7 @@ organization := "com.thoughtworks.binding"
 
 name := "JsPromiseBinding"
 
-libraryDependencies += "org.scalatest" %%% "scalatest" % "3.1.0" % Test
+libraryDependencies += "org.scalatest" %%% "scalatest" % "3.1.1" % Test
 
 scalacOptions += "-Xexperimental"
 
