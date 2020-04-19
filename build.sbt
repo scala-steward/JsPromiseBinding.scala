@@ -6,7 +6,7 @@ name := "JsPromiseBinding"
 
 libraryDependencies += "org.scalatest" %%% "scalatest" % "3.1.1" % Test
 
-libraryDependencies += "com.thoughtworks.binding" %%% "binding" % "12.0.0-M0"
+libraryDependencies += "com.thoughtworks.binding" %%% "binding" % "12.0.0-M1"
 
 enablePlugins(Example)
 
