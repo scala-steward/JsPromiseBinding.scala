@@ -24,7 +24,7 @@ SOFTWARE.
 
 package com.thoughtworks.binding
 
-import scala.scalajs.js.{Thenable, UndefOr, |, Promise => JsPromise}
+import scala.scalajs.js, js.{Thenable, |, Promise => JsPromise}
 import Binding._
 
 object JsPromiseBinding {
@@ -143,9 +143,9 @@ final class JsPromiseBinding[A](thenable: Thenable[A]) extends Binding[Option[Ei
       isHandlerRegistered = true
       thenable.`then`[Unit]({ result: A =>
         handler(Right(result))
-      }, UndefOr.any2undefOrA({ error: Any =>
+      }, { error: Any =>
         handler(Left(error))
-      }))
+      }: js.Function1[Any, Unit | Thenable[Unit]])
     }
   }
 }
