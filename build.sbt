@@ -18,6 +18,6 @@ exampleSuperTypes := exampleSuperTypes.value.map {
     otherTrait
 }
 
-exampleSuperTypes += ctor"_root_.com.thoughtworks.binding.QueueAsyncTestSuite"
+exampleSuperTypes += init"_root_.com.thoughtworks.binding.QueueAsyncTestSuite"
 
 jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv()
