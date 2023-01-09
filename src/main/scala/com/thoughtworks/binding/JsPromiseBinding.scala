@@ -141,9 +141,9 @@ final class JsPromiseBinding[A](thenable: Thenable[A]) extends Binding[Option[Ei
     publisher += listener
     if (!isHandlerRegistered) {
       isHandlerRegistered = true
-      thenable.`then`[Unit]({ result: A =>
+      thenable.`then`[Unit]({ (result: A) =>
         handler(Right(result))
-      }, { error: Any =>
+      }, { (error: Any) =>
         handler(Left(error))
       }: js.Function1[Any, Unit | Thenable[Unit]])
     }
