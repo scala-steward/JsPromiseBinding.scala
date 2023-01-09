@@ -14,4 +14,4 @@ addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.1.1")
 
 addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
 
-addSbtPlugin("com.thoughtworks.example" % "sbt-example" % "9.2.0")
+addSbtPlugin("com.thoughtworks.example" % "sbt-example" % "9.2.0+37-7d1d8a25")
